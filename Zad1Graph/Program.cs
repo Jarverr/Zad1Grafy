@@ -20,10 +20,11 @@ namespace Zad1Graph
             Stopwatch sw = new Stopwatch();
             if (args.Length == 1)
             {
-          
-                //args[0] = "GraphToTestV4.dt";
+
+                //args[0] = "GraphToTest.dt";
                 using var sr = new StreamReader(args[0]);
                 sw.Start();
+                int counter = 0;
                 //Console.WriteLine(sr.ReadToEnd());
                 var graph = Parse(sr.ReadToEnd());
                 //Console.WriteLine(graph+"\n\n");
@@ -35,7 +36,7 @@ namespace Zad1Graph
                 List<int> vGroup = new List<int>();
                 List<int> uGroup = new List<int>();
                 Tuple<int, int> transformed;
-                bool isInUGroup=false;
+                bool isInUGroup = false;
                 ///System zbierania danych o grafie
                 foreach (var item in graph.AllVertices.ToList())
                 {
@@ -69,64 +70,113 @@ namespace Zad1Graph
                         //sprawdzenie braku wejść do wierzchołka dodja do V
                         if (edgesDestination[item.Id] == 0)
                         {
-                            vGroup.Add(item.Id);
+                            //   vGroup.Add(item.Id);
                         }
                     }
 
                 }
-                foreach (var item in graph.AllVertices.ToList())
+                do
                 {
-                    foreach (var connected in edgesConnection[item.Id])
-                    {
-                        //jezeli cos ma połączenie z wierzcholkiem z U  dodja go do V
-                        if (uGroup.Contains(connected))
-                        {
-                            if (!vGroup.Contains(item.Id))
-                                vGroup.Add(item.Id);
-                        }
-                    }
-                }
+                    hasConnectionWithUGroupe(graph, edgesConnection, vGroup, uGroup);
 
-                foreach (var item in graph.AllVertices.ToList())
-                {
-                    foreach (var connected in edgesConnection[item.Id])//elementy z którymi jest połączony gość z v groupy
+                    //foreach (var item in graph.AllVertices.ToList())
+                    //{
+                    //    foreach (var connected in edgesConnection[item.Id])
+                    //    {
+                    //        //jezeli cos ma połączenie z wierzcholkiem z U  dodja go do V
+                    //        if (uGroup.Contains(connected))
+                    //        {
+                    //            if (!vGroup.Contains(item.Id))
+                    //                vGroup.Add(item.Id);
+                    //        }
+                    //    }
+                    //}
+                    groupVHasConnnectionTO(vGroup, edgesConnection, uGroup);
+                    checkMyVGroupNeighbours(graph, uGroup, vGroup, edgesConnection, isInUGroup);
+
+                    if (counter == vGroup.Count + uGroup.Count)
                     {
-                        //dodja wierzchołki z którymi łącza się goście z V grupy do U grupy
-                       if (vGroup.Contains(item.Id))
-                        {
-                            if (!uGroup.Contains(connected)&& !vGroup.Contains(connected))
-                            {
-                                uGroup.Add(connected);
-                            }
-                        }
+                        TakeOneVertexFromTheRest(graph, vGroup, uGroup, edgesConnection, isInUGroup);
                     }
-                }
+                    //foreach (var item in graph.AllVertices.ToList())
+                    //{
+                    //    if (!uGroup.Contains(item.Id) && !vGroup.Contains(item.Id))
+                    //    {
+                    //        uGroup.Add(item.Id);
+                    //        break;
+                    //    }
+                    //}
+                    counter = vGroup.Count + uGroup.Count;
+                } while (vGroup.Count + uGroup.Count < graph.Vertices.Count());
+                //foreach (var item in vGroup)
+                //{
+                //    foreach (var connected in edgesConnection[item])//elementy z którymi jest połączony gość z v groupy
+                //    {
+                //        //dodja wierzchołki z którymi łącza się goście z V grupy do U grupy
+                //       if (vGroup.Contains(item))
+                //        {
+                //            if (!uGroup.Contains(connected)&& !vGroup.Contains(connected))
+                //            {
+                //                uGroup.Add(connected);
+                //            }
+                //        }
+                //    }
+                //}
+
+                //sprawdzenie grup do jakich naleza sasiedzi do których mam dostep jezeli wszyszcy sasiedzi naleza do Vgroupy to dodaj mnie do U
+                //foreach (var item in graph.AllVertices.ToList())
+                //{
+                //    isInUGroup = true;
+                //    if (!uGroup.Contains(item.Id)&&!vGroup.Contains(item.Id))
+                //    {
+                //        foreach (var vertex in vGroup)
+                //        {
+                //            if (!edgesConnection[item.Id].Contains(vertex))
+                //            {
+                //                isInUGroup = false;
+                //            }
+                //        }
+                //        foreach (var vertex in uGroup)
+                //        {
+                //            if (!edgesConnection[item.Id].Contains(vertex))
+                //            {
+                //                isInUGroup = false;
+                //            }
+                //        }
+                //        if (!isInUGroup)
+                //        {
+                //            uGroup.Add(item.Id);
+                //        }
+                //    }
+                //}
+
+
 
                 //sprawdz pozostałe wierzchołki
-                foreach (var item in graph.AllVertices.ToList())
-                {
-                    if (!uGroup.Contains(item.Id) && !vGroup.Contains(item.Id))
-                    {
-                        foreach (var connected in edgesConnection[item.Id])
-                        {
-                            if (uGroup.Contains(connected))
-                            {
-                                isInUGroup = true;
-                                if (!vGroup.Contains(item.Id))
-                                {
-                                    vGroup.Add(item.Id);
-                                }
-                                break;
-                            }
-                            else
-                                isInUGroup = false;
-                        }
-                        if (isInUGroup==false)
-                        {
-                            uGroup.Add(item.Id);
-                        }
-                    }
-                }
+                //foreach (var item in graph.AllVertices.ToList())
+                //{
+                //    if (!uGroup.Contains(item.Id) && !vGroup.Contains(item.Id))
+                //    {
+                //        foreach (var connected in edgesConnection[item.Id])
+                //        {
+                //            if (uGroup.Contains(connected))
+                //            {
+                //                isInUGroup = true;
+                //                if (!vGroup.Contains(item.Id))
+                //                {
+                //                    vGroup.Add(item.Id);
+                //                }
+                //                break;
+                //            }
+                //            else
+                //                isInUGroup = false;
+                //        }
+                //        if (isInUGroup==false)
+                //        {
+                //            uGroup.Add(item.Id);
+                //        }
+                //    }
+                //}
 
 
                 ///Wypisywanie danych
@@ -144,10 +194,10 @@ namespace Zad1Graph
                 foreach (var item in uGroup)
                 {
                     Console.Write("{0} ", item);
-                
+
                 }
 
-                Console.WriteLine("\nEllapsed time is {0}",sw.Elapsed);
+                Console.WriteLine("\nEllapsed time is {0}", sw.Elapsed);
                 //var graph = new DotGraph<int>();
                 //graph.Attributes.Add("bb", "1.2,3.4,5,6.7");
                 //DotVertex<int> dotVertex = new DotVertex<int>(0);
@@ -163,6 +213,106 @@ namespace Zad1Graph
                 Console.WriteLine("Podaj arguemnt wejściowy przy uruchamianiu programu.");
             }
         }
+
+        private static void checkMyVGroupNeighbours(DotGraph<int> graph, List<int> uGroup, List<int> vGroup, Dictionary<int, List<int>> edgesConnection, bool isInUGroup)
+        {
+            foreach (var item in graph.AllVertices.ToList())
+            {
+                isInUGroup = false;
+                if (!uGroup.Contains(item.Id) && !vGroup.Contains(item.Id))
+                {
+                    foreach(int vertex in edgesConnection[item.Id])
+                    {
+                        if (!vGroup.Contains(vertex))
+                        {
+                            isInUGroup = true;
+                            break;
+                        }
+                        
+                    }
+                    if (isInUGroup)
+                    {
+                        continue;
+                    }
+
+                    foreach (var vertex in uGroup)
+                    {
+                        if (edgesConnection[item.Id].Contains(vertex))
+                        {
+                            isInUGroup = true;
+                            break;
+                        }
+                    }
+                    if (isInUGroup)
+                    {
+                        continue;
+                    }
+                    uGroup.Add(item.Id);
+                }
+            }
+        }
+
+        private static void TakeOneVertexFromTheRest(DotGraph<int> graph, List<int> vGroup, List<int> uGroup, Dictionary<int, List<int>> edgesConnection, bool isInUGroup)
+        {
+            isInUGroup = false;
+            foreach (var item in graph.AllVertices.ToList())
+            {
+                if (!uGroup.Contains(item.Id) && !vGroup.Contains(item.Id))
+                {
+                    foreach (var vertex in uGroup)
+                    {
+                        if (edgesConnection[item.Id].Contains(vertex))
+                        {
+                            isInUGroup = true;
+                        }
+
+                    }
+
+
+                }
+                if (!uGroup.Contains(item.Id) && !vGroup.Contains(item.Id) && !isInUGroup)
+                {
+                    uGroup.Add(item.Id);
+                    break;
+                }
+            }
+        }
+
+        private static void groupVHasConnnectionTO(List<int> vGroup, Dictionary<int, List<int>> edgesConnection, List<int> uGroup)
+        {
+            foreach (var item in vGroup)
+            {
+                foreach (var connected in edgesConnection[item])//elementy z którymi jest połączony gość z v groupy
+                {
+                    //dodja wierzchołki z którymi łącza się goście z V grupy do U grupy
+                    
+                        if (!uGroup.Contains(connected) && !vGroup.Contains(connected))
+                        {
+                            uGroup.Add(connected);
+                        }
+                }
+            }
+        }
+
+        private static void hasConnectionWithUGroupe(DotGraph<int> graph, Dictionary<int, List<int>> edgesConnection, List<int> vGroup, List<int> uGroup)
+        {
+            foreach (var item in graph.AllVertices.ToList())
+            {
+                foreach (var connected in edgesConnection[item.Id])
+                {
+                    //jezeli cos ma połączenie z wierzcholkiem z U  dodja go do V
+                    if (uGroup.Contains(connected))
+                    {
+                        if (!vGroup.Contains(item.Id))
+                        {
+                            vGroup.Add(item.Id);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
         private static Tuple<int, int> transformEdgeIdToInt(IEdge edge, string whichEndOfEdge)
         {
             int charLoc;

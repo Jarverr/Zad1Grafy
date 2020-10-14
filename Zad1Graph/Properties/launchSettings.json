@@ -1,7 +1,8 @@
 {
   "profiles": {
     "Zad1Graph": {
-      "commandName": "Project"
+      "commandName": "Project",
+      "commandLineArgs": "GraphToTest.dt"
     }
   }
 }
