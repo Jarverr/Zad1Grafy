@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "c4g4MW+3PgpT9oEA2j0zVzXkH3kFeBxMOETNg3qrEEhXM+aZhLyvgn7XzGML2Ymbc8SzO1V3bLa903ktitVddw==",
+  "dgSpecHash": "b6iPiUr5rwm+UYvHDBqAAxlfNPrm6HydKRX4g5yoE6K4SOdFyoLuT/cSyOEJ+iQ8/UZ8FmPdz3o26SnXzv0mYQ==",
   "success": true,
-  "projectFilePath": "F:\\PULPIR\\Grafy\\Zad1Graph\\Zad1Graph\\Zad1Graph.csproj",
+  "projectFilePath": "F:\\PULPIR\\Grafy\\Lab1\\Zad1GraphV2\\Zad1Graph\\Zad1Graph.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Krzyz\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
     "C:\\Users\\Krzyz\\.nuget\\packages\\graphviz4net\\3.0.2\\graphviz4net.3.0.2.nupkg.sha512",

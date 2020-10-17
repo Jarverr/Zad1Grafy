@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "F:\\PULPIR\\Grafy\\Zad1Graph\\Zad1Graph\\Zad1Graph.csproj": {}
+    "F:\\PULPIR\\Grafy\\Lab1\\Zad1GraphV2\\Zad1Graph\\Zad1Graph.csproj": {}
   },
   "projects": {
-    "F:\\PULPIR\\Grafy\\Zad1Graph\\Zad1Graph\\Zad1Graph.csproj": {
+    "F:\\PULPIR\\Grafy\\Lab1\\Zad1GraphV2\\Zad1Graph\\Zad1Graph.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "F:\\PULPIR\\Grafy\\Zad1Graph\\Zad1Graph\\Zad1Graph.csproj",
+        "projectUniqueName": "F:\\PULPIR\\Grafy\\Lab1\\Zad1GraphV2\\Zad1Graph\\Zad1Graph.csproj",
         "projectName": "Zad1Graph",
-        "projectPath": "F:\\PULPIR\\Grafy\\Zad1Graph\\Zad1Graph\\Zad1Graph.csproj",
+        "projectPath": "F:\\PULPIR\\Grafy\\Lab1\\Zad1GraphV2\\Zad1Graph\\Zad1Graph.csproj",
         "packagesPath": "C:\\Users\\Krzyz\\.nuget\\packages\\",
-        "outputPath": "F:\\PULPIR\\Grafy\\Zad1Graph\\Zad1Graph\\obj\\",
+        "outputPath": "F:\\PULPIR\\Grafy\\Lab1\\Zad1GraphV2\\Zad1Graph\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "F:\\Microsoft\\Xamarin\\NuGet\\"
@@ -26,6 +26,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "F:\\PackagesNuGet": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
